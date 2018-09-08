@@ -1,3 +1,4 @@
+# coding:utf-8
 from slack import slackService
 from trade_bb import tradeBb
 import subprocess

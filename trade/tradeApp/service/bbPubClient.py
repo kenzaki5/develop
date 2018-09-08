@@ -1,3 +1,4 @@
+# coding:utf-8
 import python_bitbankcc
 import json
 import os, json

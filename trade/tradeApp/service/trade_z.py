@@ -1,3 +1,4 @@
+# coding:utf-8
 from zaiflib import ZaifApi
 import time
 
