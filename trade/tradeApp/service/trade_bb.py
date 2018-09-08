@@ -28,7 +28,7 @@ class tradeBb:
         self.order_min_size=int(buyUnit)/10
         self.order_digit=int(len(str(profit)))-1
         self.buy_unit=buyUnit
-        self.profit=profit
+        self.profit=float(profit)
         self.pair=currencyPair
 
     def tradeBb(self):
