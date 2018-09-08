@@ -96,10 +96,7 @@ class tradeBb:
                     if self.bbservice.is_active_order(self.pair,oid)==True:
                         self.bbservice.cancel(self.pair,oid)
                         print("Log : Buy canceled! oid={0}".format(oid))
-                        time.sleep(5)
-                #単位の整形
-                #if sell_amount==float(sell_amount):
-                #   sell_amount=float(sell_amount)       
+                        time.sleep(5)      
                 print("Log : Sell order {0} x {1}".format(float(buy_price+self.profit),sell_amount))
                 self.slackService.requestOnSlack("Log : Sell order {0} x {1}".format(float(buy_price+self.profit),sell_amount))
                 #利益をのせて注文　BTCの場合はpriceを整数に強制する。
