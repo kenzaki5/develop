@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cms',
     'bootstrap4',  # django-bootstrap4
+    'tradeApp',
     
 ]
 
@@ -52,7 +53,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'mybook.urls'
+ROOT_URLCONF = 'trade.urls'
 
 TEMPLATES = [
     {
@@ -70,7 +71,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'mybook.wsgi.application'
+WSGI_APPLICATION = 'trade.wsgi.application'
 
 
 # Database

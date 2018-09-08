@@ -1,5 +1,8 @@
 from django.contrib import admin
 from cms.models import Book, Impression
+from tradeApp.models.exchange import Exchange
+from tradeApp.models.bbapi import BbApi
+from tradeApp.models.apitrade import ApiTrade
 
 class BookAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'publisher', 'page',)  # 一覧に出したい項目
@@ -13,3 +16,8 @@ class ImpressionAdmin(admin.ModelAdmin):
     raw_id_fields = ('book',)   # 外部キーをプルダウンにしない（データ件数が増加時のタイムアウトを予防）
     
 admin.site.register(Impression)
+
+admin.site.register(Exchange)
+admin.site.register(BbApi)
+admin.site.register(ApiTrade)
+
