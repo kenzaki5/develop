@@ -23,6 +23,8 @@ class tradeBb:
     slackService=slackService()
     pair=""
 
+    exceptionCnt=0
+
     #コンストラクタ
     def __init__(self,buyUnit,profit,currencyPair):
         self.order_min_size=int(buyUnit)/10
@@ -56,6 +58,11 @@ class tradeBb:
                     oid=self.bbservice.order(self.pair,buy_price,buy_amount,"buy","limit")
                 except:
                     print("exception")
+                    self.exceptionCnt+=1
+                    if self.exceptionCnt > 5:
+                        self.bbservice.cancel(self.pair,oid)
+                        print("Log : Sell canceled! oid={0}".format(oid))
+                        time.sleep(5)
                     continue
                 print("Log : Buy oid={0}".format(oid))
                 #注文がサーバーで処理されるまで少し待つ
@@ -105,6 +112,11 @@ class tradeBb:
                     oid=self.bbservice.order(self.pair,buy_price+self.profit,float(sell_amount),"sell","limit")
                 except:
                     print("exception")
+                    self.exceptionCnt+=1
+                    if self.exceptionCnt > 5:
+                        self.bbservice.cancel(self.pair,oid)
+                        print("Log : Sell canceled! oid={0}".format(oid))
+                        time.sleep(5)
                     continue
                 print("Log : Sell oid={0}".format(oid))   
                 #注文がサーバーで処理されるまで少し待つ
