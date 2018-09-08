@@ -62,6 +62,7 @@ class tradeBb:
                     if self.exceptionCnt > 5:
                         self.bbservice.cancel(self.pair,oid)
                         print("Log : Sell canceled! oid={0}".format(oid))
+                        self.exceptionCnt=0
                         time.sleep(5)
                     continue
                 print("Log : Buy oid={0}".format(oid))
@@ -116,6 +117,7 @@ class tradeBb:
                     if self.exceptionCnt > 5:
                         self.bbservice.cancel(self.pair,oid)
                         print("Log : Sell canceled! oid={0}".format(oid))
+                        self.exceptionCnt=0
                         time.sleep(5)
                     continue
                 print("Log : Sell oid={0}".format(oid))   
