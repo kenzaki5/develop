@@ -17,7 +17,7 @@ class tradeBb:
     #取引パラメータ
     buy_unit      =0      #購入単位
     profit        =0      #価格差
-    CURRENCY_PAIR="xrp_jpy"
+    CURRENCY_PAIR=""
 
     bbservice=bbService(API_KEY,API_SECRET,CURRENCY_PAIR)
     slackService=slackService()
@@ -26,12 +26,13 @@ class tradeBb:
     exceptionCnt=0
 
     #コンストラクタ
-    def __init__(self,buyUnit,profit,currencyPair):
+    def __init__(self,buyUnit,profit,orderDigit,currencyPair):
         self.order_min_size=buyUnit
-        self.order_digit=int(len(str(profit)))-1
+        self.order_digit=orderDigit
         self.buy_unit=buyUnit
         self.profit=float(profit)
         self.pair=currencyPair
+        self.CURRENCY_PAIR=currencyPair
 
     def tradeBb(self):
         while True:
