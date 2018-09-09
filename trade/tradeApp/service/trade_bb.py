@@ -27,7 +27,7 @@ class tradeBb:
 
     #コンストラクタ
     def __init__(self,buyUnit,profit,currencyPair):
-        self.order_min_size=int(buyUnit)/10
+        self.order_min_size=buyUnit
         self.order_digit=int(len(str(profit)))-1
         self.buy_unit=buyUnit
         self.profit=float(profit)
@@ -98,6 +98,7 @@ class tradeBb:
             if sell_amount<self.order_min_size:
                 #部分的な約定などで最小売却単位に届かないなら買いましする
                 print("Log : Insufficient XRP balance")
+                oid=self.bbservice.order(self.pair,buy_price,10,"buy","limit")
             else:
                 #注文が残っていたらキャンセルする
                 if oid!=None:

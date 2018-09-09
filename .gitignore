@@ -4,3 +4,5 @@ trade_sample/trade_bf_list05.py
 trade_sample/trade_cc_list06.py
 trade_sample/trade_z.py
 trade_sample/zaiflib.py
+trade/tradeApp/service/__pycache__/bbService.cpython-36.pyc
+trade/tradeApp/service/__pycache__/slack.cpython-36.pyc
