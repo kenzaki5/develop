@@ -6,7 +6,7 @@ import os
 import sys
 
 slackService=slackService()
-tradeBb=tradeBb(500,0.01,"xrp_jpy")
+tradeBb=tradeBb(1000,0.01,"xrp_jpy")
 
 print('trade start!')
 tradeBb.tradeBb()

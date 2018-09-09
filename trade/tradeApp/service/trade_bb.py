@@ -88,6 +88,7 @@ class tradeBb:
                         time.sleep(5)
                 else:
                     print("Log : Buy completed! oid={0}".format(oid))
+                    self.slackService.requestOnSlack("Log : Buy completed! oid={0}".format(oid))
             else:
                 #売却するBTCがすでにあるなら何もしない
                 print("Log : Sufficient XRP balance")
@@ -138,5 +139,6 @@ class tradeBb:
                         time.sleep(10)
                         break
                 print("Log : Sell completed! oid={0}".format(oid))
+                self.slackService.requestOnSlack("Log : Sell completed! oid={0}".format(oid))
                 #注文がサーバーで処理されるまで少し待つ
                 time.sleep(10)
