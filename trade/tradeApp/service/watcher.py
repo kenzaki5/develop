@@ -57,9 +57,9 @@ class watcher:
 
         if golden:
             print("golden")
-            # result = subprocess.check_output("ps ax | grep python trade.py | grep -v grep")
-            # if result!='python trade.py':
-            return True
+            result = subprocess.check_output("ps ax | grep python trade.py | grep -v grep")
+            if result!='python trade.py':
+                return True
         elif dead:
             print("dead")
             return False

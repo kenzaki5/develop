@@ -12,8 +12,7 @@ tradeStop=tradeStop()
 while True:
     res=watcher.watch()
     if res:
-        # subprocess.check_call('forever start /home/ec2-user/git/develop/trade/tradeApp/service/server.js')
-        subprocess.check_call('python /trade/tradeApp/service/trade.py')
+        subprocess.check_call('forever start /home/ec2-user/git/develop/trade/tradeApp/service/server.js')
         print("True")
     else:
         tradeStop.stop()
