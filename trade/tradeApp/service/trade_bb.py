@@ -7,9 +7,10 @@ from decimal import (Decimal, ROUND_DOWN)
 
 class tradeBb:
     config = configparser.ConfigParser()
-    config.read('./config.ini', 'UTF-8')
-    API_KEY=config.get('develop', 'apiKey')
-    API_SECRET=config.get('develop', 'apiSecret')
+    config.read('trade/tradeApp/service/config.ini', 'UTF-8')
+    API_KEY=config.get('conf', 'api_key')
+    API_SECRET=config.get('conf', 'api_secret')
+    execFlg=config.get('conf', 'exec_flg')
     #取引所のパラメータ
     order_min_size=0      #数量最小値
     order_digit   =0      #数量の桁数　ex. 3=0.001
@@ -35,14 +36,14 @@ class tradeBb:
         self.CURRENCY_PAIR=currencyPair
 
     def tradeBb(self):
-        while True:
+        while self.execFlg == 1:
             ob=self.bbservice.orderbook(self.pair)
             buy_price=float(ob["bids"][0][0])
             #購入数量を計算。 購入数量 = 数量*(1+fee*2) - BTC残高
             balance=self.bbservice.balance()
             print("Log : JPY {0}".format(float(balance["jpy"])))
             self.slackService.requestOnSlack("Log : JPY {0}".format(float(balance["jpy"])))
-            buy_amount=round(float(self.buy_unit)*(1+0.01*self.fee_rate*2) - float(balance["xrp"]),self.order_digit)
+            buy_amount=round(float(self.buy_unit)*(1+0.01*self.fee_rate*2) - float(balance["btc"]),self.order_digit)
             if buy_amount > 0:
                 #BTC残高が不十分なら注文の最小値を考慮して追加購入。
                 buy_amount=max(self.order_min_size,buy_amount)
@@ -92,15 +93,15 @@ class tradeBb:
                     self.slackService.requestOnSlack("Log : Buy completed! oid={0}".format(oid))
             else:
                 #売却するBTCがすでにあるなら何もしない
-                print("Log : Sufficient XRP balance")
+                print("Log : Sufficient BTC balance")
             #BTC残高を調べる
             balance=self.bbservice.balance()
             #売却数量は,BTC残高*(1-fee)
-            sell_amount=Decimal(float(balance["xrp"])).quantize(Decimal('0.001'), rounding=ROUND_DOWN)
+            sell_amount=round(float(balance["btc"]),self.order_digit)
             if sell_amount<self.order_min_size:
                 #部分的な約定などで最小売却単位に届かないなら買いましする
-                print("Log : Insufficient XRP balance")
-                oid=self.bbservice.order(self.pair,buy_price,10,"buy","limit")
+                print("Log : Insufficient BTC balance")
+                oid=self.bbservice.order(self.pair,buy_price,0.001,"buy","limit")
             else:
                 #注文が残っていたらキャンセルする
                 if oid!=None:

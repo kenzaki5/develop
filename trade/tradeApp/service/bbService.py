@@ -30,7 +30,7 @@ class bbService:
     def orderbook(self,pair):
         depth=self.bbPubClient.getDepth(pair)
         return {"asks":[tuple(i) for i in depth["asks"]],"bids":[tuple(i) for i in depth["bids"]]}
-    # 買い売り注文を出す
+    #買い売り注文を出す
     def order(self, pair, price, orderUnit, orderSide, orderType):
         order=self.bbPrvClient.order(pair, price, orderUnit, orderSide, orderType)
         return order["order_id"]
@@ -40,6 +40,11 @@ class bbService:
     #注文が有効かを返す
     def is_active_order(self,pair,oid):
         activeOrders=self.bbPrvClient.getActiveOrders(pair)
-        return str(oid) in activeOrders["orders"] 
+        return str(oid) in activeOrders["orders"]
+    #板情報を取得する
+    def getTicker(self,pair):
+        ticker=self.bbPubClient.getTicker(pair)
+        return ticker
+
         
 
