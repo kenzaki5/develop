@@ -6,13 +6,14 @@ from tradeStop import tradeStop
 from subprocess import getoutput
 import subprocess
 from statistics import mean, median,variance,stdev
+from slack import slackService
+from config import config
 
 class watcher:
-    config = configparser.ConfigParser()
-    config.read('trade/tradeApp/service/config.ini', 'UTF-8')
-    API_KEY=config['conf']['api_key']
-    API_SECRET=config['conf']['api_secret']
-    count=int(config['conf']['count'])
+    config=config()
+    API_KEY=config.getApiKey()
+    API_SECRET=config.getApiSecret()
+    count=int(config.getCount())
     CURRENCY_PAIR="btc_jpy"
     sellMean=[]
     buyMean=[]
@@ -27,6 +28,7 @@ class watcher:
 
     bbservice=bbService(API_KEY,API_SECRET,CURRENCY_PAIR)
     tradeStop=tradeStop()
+    slackService=slackService()
 
     def watch(self):
         for num in range(((int(self.count) * 3))//int(self.count)):
@@ -56,14 +58,14 @@ class watcher:
         print("dead {0}".format(dead))
 
         if golden:
-            print("golden")
+            self.slackService.requestOnSlack("Log : golden {0}".format(golden))
             result = subprocess.check_output("ps ax | grep python trade.py | grep -v grep")
             if result!='python trade.py':
                 return True
         elif dead:
-            print("dead")
-            return False
-
+            self.slackService.requestOnSlack("Log : dead {0}".format(dead))
+                return False
+            
         sleep(self.count)
         print("finish {0}".format(self.count))
 

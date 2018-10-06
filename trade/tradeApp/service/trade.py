@@ -5,13 +5,13 @@ from trade_bb import tradeBb
 import subprocess
 import os
 import sys
+from config import config
 
 slackService=slackService()
-config = configparser.ConfigParser()
-config.read('trade/tradeApp/service/config.ini', 'UTF-8')
+config=config()
 tradeBb=tradeBb(0.01,200,2,"btc_jpy")
 
-config['conf']['exec_flg']='1'
+config.setExecFlg('1')
 
 print('trade start!')
 tradeBb.tradeBb()

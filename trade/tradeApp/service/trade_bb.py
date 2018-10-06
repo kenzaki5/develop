@@ -4,13 +4,13 @@ from bbService import bbService
 import time
 from slack import slackService
 from decimal import (Decimal, ROUND_DOWN)
+from config import config
 
 class tradeBb:
-    config = configparser.ConfigParser()
-    config.read('trade/tradeApp/service/config.ini', 'UTF-8')
-    API_KEY=config.get('conf', 'api_key')
-    API_SECRET=config.get('conf', 'api_secret')
-    execFlg=config.get('conf', 'exec_flg')
+    config=config()
+    API_KEY=config.getApiKey()
+    API_SECRET=config.getApiSecret
+    execFlg=config.getExecFlg
     #取引所のパラメータ
     order_min_size=0      #数量最小値
     order_digit   =0      #数量の桁数　ex. 3=0.001

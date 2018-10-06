@@ -1,8 +1,7 @@
 # coding:utf-8
-import configparser
+from config import config
 
 class tradeStop:
+    config=config()
     def stop(self):
-        config = configparser.ConfigParser()
-        config.read('trade/tradeApp/service/config.ini', 'UTF-8')
-        config['conf']['exec_flg']='0'
+        self.config.setExecFlg('0')

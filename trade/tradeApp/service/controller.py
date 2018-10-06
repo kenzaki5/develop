@@ -12,7 +12,7 @@ tradeStop=tradeStop()
 while True:
     res=watcher.watch()
     if res:
-        subprocess.check_call('forever start /home/ec2-user/node/server.js')
+        subprocess.check_call('forever start ./server.js')
         print("True")
     else:
         tradeStop.stop()
