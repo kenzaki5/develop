@@ -13,5 +13,5 @@ permissions:
         - file
 hooks:
     BeforeInstall:
-     - location: Scripts/initialize.sh
+     - location: scripts/initialize.sh
        runas: root
