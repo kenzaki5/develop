@@ -1,0 +1,17 @@
+version: 0.0
+os: linux
+files:
+    - source: /
+      destination: /home/ec2-user/git/develop
+permissions:
+    - object: /home/ec2-user/git/develop
+      pattern: "**"
+      owner: apache
+      group: apache
+      mode: 755
+      type:
+        - file
+hooks:
+    BeforeInstall:
+     - location: Scripts/initialize.sh
+       runas: root
