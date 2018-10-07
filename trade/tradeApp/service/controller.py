@@ -9,10 +9,11 @@ from tradeStop import tradeStop
 
 watcher=watcher()
 tradeStop=tradeStop()
+tradeBb=tradeBb(0.01,100,2,"btc_jpy")
 while True:
     res=watcher.watch()
     if res:
-        subprocess.check_call('forever start server.js')
+        tradeBb.tradeBb()
         print("True")
     else:
         tradeStop.stop()
