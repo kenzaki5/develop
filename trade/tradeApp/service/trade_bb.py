@@ -1,5 +1,4 @@
 # coding:utf-8
-import configparser
 from bbService import bbService
 import time
 from slack import slackService
