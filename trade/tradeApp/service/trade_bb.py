@@ -10,7 +10,7 @@ class tradeBb:
     config=config()
     API_KEY=config.getApiKey()
     API_SECRET=config.getApiSecret
-    execFlg=config.getExecFlg
+    isExec=config.getExecFlg
     #取引所のパラメータ
     order_min_size=0      #数量最小値
     order_digit   =0      #数量の桁数　ex. 3=0.001
@@ -27,16 +27,17 @@ class tradeBb:
     exceptionCnt=0
 
     #コンストラクタ
-    def __init__(self,buyUnit,profit,orderDigit,currencyPair):
+    def __init__(self,buyUnit,profit,orderDigit,currencyPair,isExec):
         self.order_min_size=buyUnit
         self.order_digit=orderDigit
         self.buy_unit=buyUnit
         self.profit=float(profit)
         self.pair=currencyPair
         self.CURRENCY_PAIR=currencyPair
+        self.isExec=isExec
 
     def tradeBb(self):
-        while self.execFlg == 1:
+        while self.isExec:
             ob=self.bbservice.orderbook(self.pair)
             buy_price=float(ob["bids"][0][0])
             #購入数量を計算。 購入数量 = 数量*(1+fee*2) - BTC残高

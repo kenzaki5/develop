@@ -9,7 +9,7 @@ from config import config
 
 slackService=slackService()
 config=config()
-tradeBb=tradeBb(0.01,200,2,"btc_jpy")
+tradeBb=tradeBb(0.01,200,2,"btc_jpy",True)
 
 config.setExecFlg('1')
 

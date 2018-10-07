@@ -59,12 +59,10 @@ class watcher:
 
         if golden:
             self.slackService.requestOnSlack("Log : golden {0}".format(golden))
-            result = subprocess.check_output("ps ax | grep python trade.py | grep -v grep")
-            if result!='python trade.py':
-                return True
+            return True
         elif dead:
             self.slackService.requestOnSlack("Log : dead {0}".format(dead))
-                return False
+            return False
             
         sleep(self.count)
         print("finish {0}".format(self.count))
