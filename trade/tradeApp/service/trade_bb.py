@@ -101,7 +101,7 @@ class tradeBb:
                 print("Log : Insufficient BTC balance")
                 ob=self.bbservice.orderbook(self.pair)
                 buy_price_add=float(ob["bids"][0][0])
-                oid=self.bbservice.order(self.pair,buy_price_add,self.buy_unit//10,"buy","limit")
+                oid=self.bbservice.order(self.pair,buy_price_add,self.buy_unit//100,"buy","limit")
             # else:
             #     activeOrders=self.bbservice.getActiveOrders(self.pair)
             #     for i in activeOrders:
