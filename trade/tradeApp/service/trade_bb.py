@@ -99,7 +99,9 @@ class tradeBb:
             if sell_amount<self.order_min_size:
                 #部分的な約定などで最小売却単位に届かないなら買いましする
                 print("Log : Insufficient BTC balance")
-                oid=self.bbservice.order(self.pair,buy_price,0.001,"buy","limit")
+                ob=self.bbservice.orderbook(self.pair)
+                buy_price_add=float(ob["bids"][0][0])
+                oid=self.bbservice.order(self.pair,buy_price_add,self.buy_unit//10,"buy","limit")
             # else:
             #     activeOrders=self.bbservice.getActiveOrders(self.pair)
             #     for i in activeOrders:
@@ -114,6 +116,8 @@ class tradeBb:
             self.slackService.requestOnSlack("Log : Sell order {0} x {1}".format(float(buy_price+self.profit),sell_amount))
             #利益をのせて注文　BTCの場合はpriceを整数に強制する。
             try:
+                ob=self.bbservice.orderbook(self.pair)
+                buy_price=float(ob["bids"][0][0])
                 oid=self.bbservice.order(self.pair,buy_price+self.profit,float(sell_amount),"sell","limit")
             except:
                 print("exception")
