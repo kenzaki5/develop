@@ -3,10 +3,12 @@ from bbService import bbService
 import time
 from slack import slackService
 from decimal import (Decimal, ROUND_DOWN)
+from config import config
 
 class tradeBb:
-    API_KEY=''
-    API_SECRET=''
+    config=config()
+    API_KEY=config.getApiKey()
+    API_SECRET=config.getApiSecret()
     #取引所のパラメータ
     order_min_size=0      #数量最小値
     order_digit   =0      #数量の桁数　ex. 3=0.001
