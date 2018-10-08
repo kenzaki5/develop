@@ -2,7 +2,7 @@
 import hashlib
 import hmac
 import requests
-import urllib.parse
+from urlparse import urlparse
 import datetime
 import random
 from bbPubClient import bbPubClient

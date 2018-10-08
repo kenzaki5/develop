@@ -1,10 +1,7 @@
 # coding:utf-8
-import configparser
 from bbService import bbService
 from time import sleep
 from tradeStop import tradeStop
-from subprocess import getoutput
-import subprocess
 from statistics import mean, median,variance,stdev
 from slack import slackService
 from config import config

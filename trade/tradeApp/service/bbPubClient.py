@@ -9,7 +9,7 @@ class bbPubClient:
     pub = python_bitbankcc.public()
 
 # PUBLIC
-    def getTicker(self, pair: str):
+    def getTicker(self, pair):
         value = self.pub.get_ticker(pair)
         return value
 
