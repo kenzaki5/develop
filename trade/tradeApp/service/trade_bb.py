@@ -99,45 +99,47 @@ class tradeBb:
                 #部分的な約定などで最小売却単位に届かないなら買いましする
                 print("Log : Insufficient BTC balance")
                 oid=self.bbservice.order(self.pair,buy_price,0.001,"buy","limit")
-            else:
-                #注文が残っていたらキャンセルする
-                if oid!=None:
+            # else:
+            #     activeOrders=self.bbservice.getActiveOrders(self.pair)
+            #     for i in activeOrders:
+            #         #注文が残っていたらキャンセルする
+            #         if oid!=None:
+            #             time.sleep(5)
+            #             if self.bbservice.is_active_order(self.pair,oid)==True:
+            #                 self.bbservice.cancel(self.pair,oid)
+            #                 print("Log : Buy canceled! oid={0}".format(oid))
+            #                 time.sleep(5)      
+            print("Log : Sell order {0} x {1}".format(float(buy_price+self.profit),sell_amount))
+            self.slackService.requestOnSlack("Log : Sell order {0} x {1}".format(float(buy_price+self.profit),sell_amount))
+            #利益をのせて注文　BTCの場合はpriceを整数に強制する。
+            try:
+                oid=self.bbservice.order(self.pair,buy_price+self.profit,float(sell_amount),"sell","limit")
+            except:
+                print("exception")
+                self.exceptionCnt+=1
+                if self.exceptionCnt > 5:
+                    self.bbservice.cancel(self.pair,oid)
+                    print("Log : Sell canceled! oid={0}".format(oid))
+                    self.exceptionCnt=0
                     time.sleep(5)
-                    if self.bbservice.is_active_order(self.pair,oid)==True:
-                        self.bbservice.cancel(self.pair,oid)
-                        print("Log : Buy canceled! oid={0}".format(oid))
-                        time.sleep(5)      
-                print("Log : Sell order {0} x {1}".format(float(buy_price+self.profit),sell_amount))
-                self.slackService.requestOnSlack("Log : Sell order {0} x {1}".format(float(buy_price+self.profit),sell_amount))
-                #利益をのせて注文　BTCの場合はpriceを整数に強制する。
-                try:
-                    oid=self.bbservice.order(self.pair,buy_price+self.profit,float(sell_amount),"sell","limit")
-                except:
-                    print("exception")
-                    self.exceptionCnt+=1
-                    if self.exceptionCnt > 5:
-                        self.bbservice.cancel(self.pair,oid)
-                        print("Log : Sell canceled! oid={0}".format(oid))
-                        self.exceptionCnt=0
-                        time.sleep(5)
-                    continue
-                print("Log : Sell oid={0}".format(oid))   
-                #注文がサーバーで処理されるまで少し待つ
-                time.sleep(10)
-                #注文が成立するまで永遠に待つ
-                count=0
-                while self.bbservice.is_active_order(self.pair,oid):
-                    print("Log : Sell Wait count:".count + 1)
-                    time.sleep(3)
-                    #1分売れなかったら今の買値で売る
-                    if (count > 20) :
-                        ob=self.bbservice.orderbook(self.pair)
-                        buy_price=float(ob["bids"][0][0])
-                        oid=self.bbservice.order(self.pair,float(buy_price),sell_amount,"sell","limit")
-                        #注文がサーバーで処理されるまで少し待つ
-                        time.sleep(10)
-                        break
-                print("Log : Sell completed! oid={0}".format(oid))
-                self.slackService.requestOnSlack("Log : Sell completed! oid={0}".format(oid))
-                #注文がサーバーで処理されるまで少し待つ
-                time.sleep(10)
+                continue
+            print("Log : Sell oid={0}".format(oid))   
+            #注文がサーバーで処理されるまで少し待つ
+            time.sleep(10)
+            #注文が成立するまで永遠に待つ
+            count=0
+            while self.bbservice.is_active_order(self.pair,oid):
+                print("Log : Sell Wait count:".count + 1)
+                time.sleep(3)
+                #1分売れなかったら今の買値で売る
+                if (count > 20) :
+                    ob=self.bbservice.orderbook(self.pair)
+                    buy_price=float(ob["bids"][0][0])
+                    oid=self.bbservice.order(self.pair,float(buy_price),sell_amount,"sell","limit")
+                    #注文がサーバーで処理されるまで少し待つ
+                    time.sleep(10)
+                    break
+            print("Log : Sell completed! oid={0}".format(oid))
+            self.slackService.requestOnSlack("Log : Sell completed! oid={0}".format(oid))
+            #注文がサーバーで処理されるまで少し待つ
+            time.sleep(10)

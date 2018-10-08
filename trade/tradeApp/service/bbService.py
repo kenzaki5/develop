@@ -41,6 +41,10 @@ class bbService:
     def is_active_order(self,pair,oid):
         activeOrders=self.bbPrvClient.getActiveOrders(pair)
         return str(oid) in activeOrders["orders"]
+    #有効な注文を取得
+    def getActiveOrders(self,pair):
+        activeOrders=self.bbPrvClient.getActiveOrders(pair)
+        return activeOrders["orders"]
     #板情報を取得する
     def getTicker(self,pair):
         ticker=self.bbPubClient.getTicker(pair)
