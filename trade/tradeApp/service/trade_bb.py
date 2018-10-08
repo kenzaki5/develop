@@ -118,8 +118,10 @@ class tradeBb:
                 print("exception")
                 self.exceptionCnt+=1
                 if self.exceptionCnt > 5:
-                    self.bbservice.cancel(self.pair,oid)
-                    print("Log : Sell canceled! oid={0}".format(oid))
+                    activeOrders=self.bbservice.getActiveOrders(self.pair)
+                    for i in activeOrders:
+                        self.bbservice.cancel(self.pair,i["order_id"])
+                        print("Log : Sell canceled! oid={0}".format(oid))
                     self.exceptionCnt=0
                     time.sleep(5)
                 continue
