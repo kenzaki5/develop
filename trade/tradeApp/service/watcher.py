@@ -4,7 +4,6 @@ from time import sleep
 from tradeStop import tradeStop
 from statistics import mean, median,variance,stdev
 from slack import slackService
-from config import config
 
 class watcher:
     config=config()

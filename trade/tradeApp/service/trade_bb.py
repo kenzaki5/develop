@@ -3,7 +3,6 @@ from bbService import bbService
 import time
 from slack import slackService
 from decimal import (Decimal, ROUND_DOWN)
-from config import config
 
 class tradeBb:
     API_KEY=''
@@ -103,7 +102,7 @@ class tradeBb:
             #     activeOrders=self.bbservice.getActiveOrders(self.pair)
             #     for i in activeOrders:
             #         #注文が残っていたらキャンセルする
-            if oid!=None:
+            if oid is not None:
                 time.sleep(5)
                 if self.bbservice.is_active_order(self.pair,oid)==True:
                     self.bbservice.cancel(self.pair,oid)

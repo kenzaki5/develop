@@ -5,7 +5,6 @@ from trade_bb import tradeBb
 import subprocess
 import os
 import sys
-from config import config
 
 class trade:
     slackService=slackService()

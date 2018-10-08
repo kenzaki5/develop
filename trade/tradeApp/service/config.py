@@ -1,8 +1,8 @@
 # coding:utf-8
 
 class config:
-    api_key='5962ac20-5ad9-472f-a469-37e1b9391b79'
-    api_secret='b4f9f6f96ec0722bba47c22bcb2476e0246ef32de14bac32c72fba795427be14'
+    api_key=''
+    api_secret=''
     exec_flg='1'
     count='5'
 
