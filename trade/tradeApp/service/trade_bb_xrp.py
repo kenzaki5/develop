@@ -130,7 +130,7 @@ class tradeBb:
             for i in range(0,5):
                 time.sleep(2)
                 try:
-                    self.add += 0.1
+                    self.add += 0.01
                     ob=self.bbservice.orderbook(self.pair)
                     buy_price=float(ob["bids"][0][0]) + self.add
                     oid=self.bbservice.order(self.pair,buy_price+self.profit,10,"sell","limit")

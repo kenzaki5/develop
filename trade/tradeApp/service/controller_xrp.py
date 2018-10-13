@@ -9,7 +9,7 @@ from tradeStop import tradeStop
 
 watcher=watcher_xrp()
 tradeStop=tradeStop()
-tradeBb=tradeBb(100,0.05,2,"xrp_jpy")
+tradeBb=tradeBb(100,0.01,2,"xrp_jpy")
 while True:
     res=watcher.watch()
     if res:
