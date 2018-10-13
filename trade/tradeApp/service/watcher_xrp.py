@@ -45,11 +45,11 @@ class watcher_xrp:
                     self.lastList=[]
 
                 ticker=self.getTicker()
-                self.sellList.append(int(ticker['sell']))
-                self.buyList.append(int(ticker['buy']))
-                self.highList.append(int(ticker['high']))
-                self.lowList.append(int(ticker['low']))
-                self.lastList.append(int(ticker['last']))
+                self.sellList.append(float(ticker['sell']))
+                self.buyList.append(float(ticker['buy']))
+                self.highList.append(float(ticker['high']))
+                self.lowList.append(float(ticker['low']))
+                self.lastList.append(float(ticker['last']))
                 self.init += 1
                 
             self.sellMean.append(mean(self.sellList))
