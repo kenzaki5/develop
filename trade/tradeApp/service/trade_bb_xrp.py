@@ -26,8 +26,8 @@ class tradeBb:
     exceptionCnt=0
     oidArray=[]
     
-    buyadd=0
-    add=0
+    buyadd=0.0
+    add=0.0
     #コンストラクタ
     def __init__(self,buyUnit,profit,orderDigit,currencyPair):
         self.order_min_size=buyUnit
@@ -63,7 +63,7 @@ class tradeBb:
                 for i in range(0,5):
                     time.sleep(2)
                     try:
-                        self.buyadd += 10
+                        self.buyadd += 0.1
                         price=buy_price + self.buyadd
                         oid=self.bbservice.order(self.pair,price,buy_amount,"buy","limit")
                         self.oidArray.append(oid)
@@ -130,10 +130,10 @@ class tradeBb:
             for i in range(0,5):
                 time.sleep(2)
                 try:
-                    self.add += 10
+                    self.add += 0.1
                     ob=self.bbservice.orderbook(self.pair)
                     buy_price=float(ob["bids"][0][0]) + self.add
-                    oid=self.bbservice.order(self.pair,buy_price+self.profit,0.01,"sell","limit")
+                    oid=self.bbservice.order(self.pair,buy_price+self.profit,10,"sell","limit")
                     self.oidArray.append(oid)
                 except Exception as e:
                     print("exception sell limit")
