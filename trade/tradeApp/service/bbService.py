@@ -25,7 +25,7 @@ class bbService:
     def balance(self):
         asset=self.bbPrvClient.getAsset()
         assets=asset["assets"]
-        return {"btc":str(assets[1]['onhand_amount']),"jpy":str(assets[0]['onhand_amount']),"xrp":str(assets[3]['onhand_amount'])}
+        return {"btc":str(assets[1]['onhand_amount']),"jpy":str(assets[0]['onhand_amount']),"xrp":str(assets[3]['onhand_amount']),"mona":str(assets[5]['onhand_amount'])}
     #注文板情報を得る
     def orderbook(self,pair):
         depth=self.bbPubClient.getDepth(pair)
