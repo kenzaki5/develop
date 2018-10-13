@@ -39,8 +39,8 @@ class tradeBb:
 
     def tradeBb(self):
         while True:
-            self.buyadd=0
-            self.add=0
+            self.buyadd=0.0
+            self.add=0.0
             ob=self.bbservice.orderbook(self.pair)
             buy_price=float(ob["bids"][0][0])
             #購入数量を計算。 購入数量 = 数量*(1+fee*2) - BTC残高
@@ -63,7 +63,7 @@ class tradeBb:
                 for i in range(0,5):
                     time.sleep(2)
                     try:
-                        self.buyadd += 0.1
+                        self.buyadd += 0.01
                         price=buy_price + self.buyadd
                         oid=self.bbservice.order(self.pair,price,buy_amount,"buy","limit")
                         self.oidArray.append(oid)
@@ -112,7 +112,7 @@ class tradeBb:
                 print("Log : Insufficient BTC balance")
                 ob=self.bbservice.orderbook(self.pair)
                 buy_price_add=float(ob["bids"][0][0])
-                oid=self.bbservice.order(self.pair,buy_price_add,10,"buy","limit")
+                oid=self.bbservice.order(self.pair,buy_price_add,100,"buy","limit")
                 self.oidArray.append(oid)
             #else:
             #     activeOrders=self.bbservice.getActiveOrders(self.pair)
@@ -133,7 +133,7 @@ class tradeBb:
                     self.add += 0.01
                     ob=self.bbservice.orderbook(self.pair)
                     buy_price=float(ob["bids"][0][0]) + self.add
-                    oid=self.bbservice.order(self.pair,buy_price+self.profit,10,"sell","limit")
+                    oid=self.bbservice.order(self.pair,buy_price+self.profit,100,"sell","limit")
                     self.oidArray.append(oid)
                 except Exception as e:
                     print("exception sell limit")
