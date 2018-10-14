@@ -1,5 +1,5 @@
 # coding:utf-8
-from slack import slackService
+from tradeApp/service/common/slack import slackService
 from trade_bb_mona import tradeBb
 import subprocess
 import os
@@ -10,12 +10,11 @@ from tradeStop import tradeStop
 watcher=watcher_mona()
 tradeStop=tradeStop()
 tradeBb=tradeBb(100,0.5,2,"mona_jpy")
-while True:
-    res=watcher.watch()
-    if res:
-        tradeBb.tradeBb()
-        print("True")
-    else:
-        tradeStop.stop()
-        print("False")
+res=watcher.watch()
+if res:
+    tradeBb.tradeBb()
+    print("True")
+else:
+    os.system('./pyshell_stop_mona.sh')
+    print("False")
       

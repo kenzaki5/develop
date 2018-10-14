@@ -10,12 +10,11 @@ from tradeStop import tradeStop
 watcher=watcher()
 tradeStop=tradeStop()
 tradeBb=tradeBb(0.01,50,2,"btc_jpy")
-while True:
-    res=watcher.watch()
-    if res:
-        tradeBb.tradeBb()
-        print("True")
-    else:
-        tradeStop.stop()
-        print("False")
+res=watcher.watch()
+if res:
+    tradeBb.tradeBb()
+    print("True")
+else:
+    os.system('./pyshell_stop.sh')
+    print("False")
       

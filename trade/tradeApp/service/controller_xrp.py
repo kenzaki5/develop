@@ -9,13 +9,12 @@ from tradeStop import tradeStop
 
 watcher=watcher_xrp()
 tradeStop=tradeStop()
-tradeBb=tradeBb(100,0.01,2,"xrp_jpy")
-while True:
-    res=watcher.watch()
-    if res:
-        tradeBb.tradeBb()
-        print("True")
-    else:
-        tradeStop.stop()
-        print("False")
+tradeBb=tradeBb(10,0.01,2,"xrp_jpy")
+res=watcher.watch()
+if res:
+    tradeBb.tradeBb()
+    print("True")
+else:
+    os.system('./pyshell_stop_xrp.sh')
+    print("False")
       
