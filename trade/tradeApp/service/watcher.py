@@ -75,14 +75,13 @@ class watcher:
         elif dead:
             self.slackService.requestOnSlack("Log : dead {0}".format(dead))
             res = False
-                
-        sleep(self.count)
+
         print("finish {0}".format(self.count))
         return res
 
     def getTicker(self):
         ticker=self.bbservice.getTicker(self.CURRENCY_PAIR)
-        sleep(2)
+        sleep(5)
         return ticker
         
     def getTake(self,a,b,c):

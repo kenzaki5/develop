@@ -10,12 +10,11 @@ from tradeStop import tradeStop
 watcher=watcher_mona()
 tradeStop=tradeStop()
 tradeBb=tradeBb(100,0.5,2,"mona_jpy")
-while True:
-    res=watcher.watch()
-    if res:
-        tradeBb.tradeBb()
-        print("True")
-    else:
-        tradeStop.stop()
-        print("False")
+res=watcher.watch()
+if res:
+    tradeBb.tradeBb()
+    print("True")
+else:
+    tradeStop.stop()
+    print("False")
       
