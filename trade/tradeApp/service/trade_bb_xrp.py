@@ -50,10 +50,10 @@ class tradeBb:
             #購入数量を計算。 購入数量 = 数量*(1+fee*2) - BTC残高
             balance=self.bbservice.balance()
             print("Log : JPY {0}".format(float(balance["jpy"])))
-            self.slackService.requestOnSlack("Log : JPY {0}".format(float(balance["jpy"])))
+            #self.slackService.requestOnSlack("Log : JPY {0}".format(float(balance["jpy"])))
             buy_amount=round(float(self.buy_unit)*(1+0.01*self.fee_rate*2) - float(balance["xrp"]),self.order_digit)
             if float(self.buy_price) > float(buy_price):
-                if (float(self.buy_price) - float(buy_price)) > 1:
+                if (float(self.buy_price) - float(buy_price)) > 0.5:
                     self.stay=False
             if buy_amount > 0:
                 #BTC残高が不十分なら注文の最小値を考慮して追加購入。
