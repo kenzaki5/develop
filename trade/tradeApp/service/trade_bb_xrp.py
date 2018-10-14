@@ -110,7 +110,7 @@ class tradeBb:
                     print("Log : Insufficient BTC balance")
                     ob=self.bbservice.orderbook(self.pair)
                     buy_price_add=float(ob["bids"][0][0])
-                    oid=self.bbservice.order(self.pair,buy_price_add,100,"buy","limit")
+                    oid=self.bbservice.order(self.pair,buy_price_add,10,"buy","limit")
                     self.oidArray.append(oid)      
             #print("Log : Sell order {0} x {1}".format(float(buy_price+self.profit),sell_amount))
             #self.slackService.requestOnSlack("Log : Sell order {0} x {1}".format(float(buy_price+self.profit),sell_amount))
@@ -121,7 +121,7 @@ class tradeBb:
                     self.add += 0.01
                     ob=self.bbservice.orderbook(self.pair)
                     buy_price=float(ob["bids"][0][0]) + self.add
-                    oid=self.bbservice.order(self.pair,buy_price+self.profit,100,"sell","limit")
+                    oid=self.bbservice.order(self.pair,buy_price+self.profit,10,"sell","limit")
                     self.oidArray.append(oid)
                 except Exception as e:
                     print("exception sell limit")
