@@ -15,6 +15,6 @@ if res:
     tradeBb.tradeBb()
     print("True")
 else:
-    tradeStop.stop()
+    os.system('./pyshell_stop.sh')
     print("False")
       

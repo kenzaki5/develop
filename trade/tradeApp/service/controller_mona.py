@@ -1,5 +1,5 @@
 # coding:utf-8
-from slack import slackService
+from tradeApp/service/common/slack import slackService
 from trade_bb_mona import tradeBb
 import subprocess
 import os
@@ -15,6 +15,6 @@ if res:
     tradeBb.tradeBb()
     print("True")
 else:
-    tradeStop.stop()
+    os.system('./pyshell_stop_mona.sh')
     print("False")
       
