@@ -50,7 +50,7 @@ class tradeBb:
             #購入数量を計算。 購入数量 = 数量*(1+fee*2) - BTC残高
             balance=self.bbservice.balance()
             print("Log : JPY {0}".format(float(balance["jpy"])))
-            self.slackService.requestOnSlack("Log : JPY {0}".format(float(balance["jpy"])))
+            #self.slackService.requestOnSlack("Log : JPY {0}".format(float(balance["jpy"])))
             buy_amount=round(float(self.buy_unit)*(1+0.01*self.fee_rate*2) - float(balance["btc"]),self.order_digit)
             if float(self.buy_price) > float(buy_price):
                     if (float(self.buy_price) - float(buy_price)) > 500:
@@ -67,7 +67,7 @@ class tradeBb:
                 #注文 BTCの場合はpriceを整数に強制する。
                 if self.stay:
                     print("Log : Buy order {0} x {1}".format(float(buy_price),buy_amount))
-                    self.slackService.requestOnSlack("Log : Buy order {0} x {1}".format(float(buy_price),buy_amount))
+                    #self.slackService.requestOnSlack("Log : Buy order {0} x {1}".format(float(buy_price),buy_amount))
                     for i in range(0,5):
                         time.sleep(2)
                         try:
