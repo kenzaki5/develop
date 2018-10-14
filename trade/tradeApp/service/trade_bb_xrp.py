@@ -53,7 +53,7 @@ class tradeBb:
             self.slackService.requestOnSlack("Log : JPY {0}".format(float(balance["jpy"])))
             buy_amount=round(float(self.buy_unit)*(1+0.01*self.fee_rate*2) - float(balance["xrp"]),self.order_digit)
             if float(self.buy_price) > float(buy_price):
-                if (float(self.buy_price) - float(buy_price)) > 500:
+                if (float(self.buy_price) - float(buy_price)) > 1:
                     self.stay=False
             if buy_amount > 0:
                 #BTC残高が不十分なら注文の最小値を考慮して追加購入。
