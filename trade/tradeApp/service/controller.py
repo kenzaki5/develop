@@ -9,7 +9,7 @@ from tradeStop import tradeStop
 
 watcher=watcher()
 tradeStop=tradeStop()
-tradeBb=tradeBb(0.01,50,2,"btc_jpy")
+tradeBb=tradeBb(0.01,200,2,"btc_jpy")
 res=watcher.watch()
 if res:
     tradeBb.tradeBb()

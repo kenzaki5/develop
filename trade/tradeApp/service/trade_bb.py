@@ -69,11 +69,13 @@ class tradeBb:
                     print("Log : Buy order {0} x {1}".format(float(buy_price),buy_amount))
                     #self.slackService.requestOnSlack("Log : Buy order {0} x {1}".format(float(buy_price),buy_amount))
                     for i in range(0,5):
-                        time.sleep(1)
+                        time.sleep(2)
                         try:
-                            self.buyadd += 10
+                            self.buyadd -= 10
+                            ob=self.bbservice.orderbook(self.pair)
+                            buy_price_add=float(ob["bids"][0][0])
                             price=buy_price + self.buyadd
-                            oid=self.bbservice.order(self.pair,price,buy_amount,"buy","limit")
+                            oid=self.bbservice.order(self.pair,float(price),float(buy_amount),"buy","limit")
                             self.oidArray.append(oid)
                         except Exception as e:
                             print("exception buy limit")
@@ -115,25 +117,25 @@ class tradeBb:
             #print("Log : Sell order {0} x {1}".format(float(buy_price+self.profit),sell_amount))
             #self.slackService.requestOnSlack("Log : Sell order {0} x {1}".format(float(buy_price+self.profit),sell_amount))
             #利益をのせて注文　BTCの場合はpriceを整数に強制する。
-            for i in range(0,5):
-                time.sleep(1)
-                try:
-                    self.add += 10
-                    ob=self.bbservice.orderbook(self.pair)
-                    buy_price=float(ob["bids"][0][0]) + self.add
-                    oid=self.bbservice.order(self.pair,buy_price+self.profit,0.01,"sell","limit")
-                    self.oidArray.append(oid)
-                except Exception as e:
-                    print("exception sell limit")
-                    print(e)
-                    self.exceptionCnt+=1
-                    if self.exceptionCnt > 5:
-                        activeOrders=self.bbservice.getActiveOrders(self.pair)
-                        for i in activeOrders:
-                            self.bbservice.cancel(self.pair,i["order_id"])
-                            print("Log : Sell canceled! oid={0}".format(oid))
-                        self.exceptionCnt=0
-                    continue 
+            #for i in range(0,5):
+            time.sleep(2)
+            try:
+                #self.add += 10
+                ob=self.bbservice.orderbook(self.pair)
+                buy_price=float(ob["bids"][0][0])
+                oid=self.bbservice.order(self.pair,float(buy_price+self.profit),float(sell_amount),"sell","limit")
+                #self.oidArray.append(oid)                
+            except Exception as e:
+                print("exception sell limit")
+                print(e)
+                self.exceptionCnt+=1
+                if self.exceptionCnt > 5:
+                    activeOrders=self.bbservice.getActiveOrders(self.pair)
+                    for i in activeOrders:
+                        self.bbservice.cancel(self.pair,i["order_id"])
+                        print("Log : Sell canceled! oid={0}".format(oid))
+                    self.exceptionCnt=0
+                continue 
             #注文が成立するまで永遠に待つ
             count=0
             for i in self.bbservice.getActiveOrders(self.pair):
@@ -142,7 +144,7 @@ class tradeBb:
                 time.sleep(3)
                 #15byou売れなかったら
                 if (count > 5) :
-                    for r in self.oidArray:
-                        oid=self.bbservice.cancel(self.pair,r)
+                    #for r in self.oidArray:
+                    oid=self.bbservice.cancel(self.pair,oid)
                 break
-            
+            time.sleep(5)
