@@ -49,6 +49,10 @@ class bbService:
     def getTicker(self,pair):
         ticker=self.bbPubClient.getTicker(pair)
         return ticker
+    def getCandleStick(self, pair, type, day):
+        stick=self.bbPubClient.getCandlestick(pair, type, day)
+        return stick['candlestick']
+
 
         
 
